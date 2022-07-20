@@ -25,23 +25,14 @@ app = FastAPI()
 
 app.mount("/static", StaticFiles(directory=str(BASE_PATH/"static")), name="static")
 
-origins = ["*"]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # decision_tree, random_forest, logistic_regression, knn, naive_bayes 
 MODEL_PATH = BASE_PATH.parent
-models = [ joblib.load(str(MODEL_PATH/"models/DecisionTree")),
-            joblib.load(str(MODEL_PATH/"models/RandomForest")),
-            joblib.load(str(MODEL_PATH/"models/LogisticRegression")),
-            joblib.load(str(MODEL_PATH/"models/KNN")),
-            joblib.load(str(MODEL_PATH/"models/NaiveBayes"))]
+models = [ joblib.load(str(MODEL_PATH/"model/DecisionTree")),
+            joblib.load(str(MODEL_PATH/"model/RandomForest")),
+            joblib.load(str(MODEL_PATH/"model/LogisticRegression")),
+            joblib.load(str(MODEL_PATH/"model/KNN")),
+            joblib.load(str(MODEL_PATH/"model/NaiveBayes"))]
 
 
 @app.get("/", response_class=HTMLResponse)
