@@ -1,51 +1,58 @@
-const form = document.getElementById("search-personality");
-form.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  innerText = event.target["personality-text"].value;
-  modelChoose =
-    event.target["model"].options[event.target["model"].selectedIndex].value;
 
-  const data = await displayResult(innerText, modelChoose);
-  value = data["searchResult"];
-  resultContainer = document.getElementById("result-container");
-  resultContainer.innerText = `Your Personality type is ${value} 
-  ${value[0]}: ${get(value[0])}
-  ${value[1]}: ${get(value[1])}
-  ${value[2]}: ${get(value[2])}
-  ${value[3]}: ${get(value[3])}`;
-  resultContainer.style.display = "block";
+const data_form = document.querySelector('#sign-up');
+// form.addEventListener('submit', handleData);
+
+
+
+//this part dynamically populates symptoms from the list to create checkbox
+const input_symptoms = ['fever','cold','cough','difficulty_breathing'];
+const sym_group=document.querySelector('#symptom-checkboxes');
+
+for (var i = 0; i < input_symptoms.length; i++) {
+
+	// <input type="checkbox" name="langs" id="langs_perl" value="Perl"> <label for="langs_perl">Perl</label>
+
+
+    var checkBoxdiv = document.createElement("div");
+	checkBoxdiv.innerHTML=`<input type="checkbox" name="symptoms" id="${input_symptoms[i]}" value="${input_symptoms[i]}"> <label for="${input_symptoms[i]}">${input_symptoms[i]}</label>`;
+	sym_group.appendChild(checkBoxdiv);
+    
+}
+
+
+
+//this part handles the submitted symptoms from the list
+const symptoms =[]
+data_form.addEventListener('submit', (e)=>{
+	e.preventDefault();
+	
+	var form_data = new FormData(data_form);
+    console.log("form data: ");
+	console.log(form_data.entries());
+    for(var pair of form_data.entries()) 
+    {
+		symptoms.push(pair[1]);
+    }
+	// document.getElementById("checkbox").checked = false;
+	console.log(symptoms);
+
+	var checkboxes =document.getElementsByName("symptoms");
+	for (var checkbox of checkboxes) {
+        checkbox.checked = false;
+    }
+    return true;
+	
 });
 
-async function displayResult(text, model) {
-  var queryUrl = "http://127.0.0.1:8000/";
-  payload = {
-    text: text,
-    model: model,
-  };
-  settings = {
-    method: "POST",
-    headers: {
-      "Content-type": "application/JSON",
-    },
-    body: JSON.stringify(payload),
-  };
-  response = await fetch(queryUrl, settings);
-  var data = await response.json();
-  return data;
-}
 
-dictionary = {
-  E: "Extrovert",
-  I: "Introvert",
-  N: "Intuition",
-  S: "Sensing",
-  T: "Thinking",
-  F: "Feeling",
-  J: "Judging",
-  P: "Perceiving",
-};
 
-function get(key) {
-  var result = dictionary[key];
-  return typeof result !== "undefined" ? result : "";
-}
+// function handleData()
+// {
+//     var form_data = new FormData(document.querySelector("form"));
+//     console.log("form data: ");
+//     for(var pair of form_data.entries()) 
+//     {
+//         console.log(pair[0]+ ' : '+ pair[1]);
+//     }
+//     return true;
+// }

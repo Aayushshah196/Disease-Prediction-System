@@ -1,13 +1,60 @@
-<html>
-    <head>
-        <title>
-            Homepage
-        </title>
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Disease Prediction System</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style></style>
+  </head>
+  <body>
+    <div style="display: none" id="context_parse">{{context}}</div>
 
-    <body>
-        <h1>
-            Homepage
-        </h1>
-    </body>
+    <main class="my_wrapper">
+      <div class="my_sidebar">
+        <div class="profile">
+          <img src="../logo1.png" alt="profile_picture" />
+          <h3>Disease prediction system</h3>
+        </div>
+        <ul>
+          <li>
+            <a href="/predict">
+              <span class="icon"><i class="fas fa-question"></i></span>
+              <span class="item">State your symptoms</span>
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              <span class="icon"><i class="fas fa-chart-line"></i></span>
+              <span class="item">Model Results</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="my_top_navbar">
+        <button class="my_hamburger">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </main>
+    {% block content %}
+    {% endblock %}
+
+  </body>
+
+  {% block script %}
+  {% endblock %}
+
+  <script>
+    var hamburger = document.querySelector(".my_hamburger");
+    hamburger.addEventListener("click", function () {
+      document.querySelector(".my_wrapper").classList.toggle("active");
+    });
+  </script>
 </html>

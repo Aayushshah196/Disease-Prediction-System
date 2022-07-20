@@ -1,76 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Personality Classification</title>
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    />
-    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}" />
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style></style>
-  </head>
-  <body>
-    <div style="display: none" id="context_parse">{{context}}</div>
+{% extends 'index.html' %}
 
-    <main class="my_wrapper">
-      <div class="my_sidebar">
-        <div class="profile">
-          <img src="../logo1.png" alt="profile_picture" />
-          <h3>Personality Classification</h3>
-        </div>
-        <ul>
-          <li>
-            <a href="./search.html">
-              <span class="icon"><i class="fas fa-question"></i></span>
-              <span class="item">Know Your Personality</span>
-            </a>
-          </li>
-          <li>
-            <a href="./resultViewer.html">
-              <span class="icon"><i class="fas fa-chart-line"></i></span>
-              <span class="item">Model Results</span>
-            </a>
-          </li>
-        </ul>
-      </div>
 
-      <div class="my_top_navbar">
-        <button class="my_hamburger">
-          <i class="fas fa-bars"></i>
-        </button>
-      </div>
-    </main>
+{% block content %}
     <div class="my_container">
-    
-      <div class="form-group">
-        <h2 style="margin-bottom: 2rem;">Fill out your symptoms</h2>
-        <form method="post" id="search-personality">
-            <select name="model" id="model">
-                <option value="Decision Tree">Decision Tree</option>
-                <option value="Random Forest Classifier">Random Forest Classifier</option>
-                <option value="Naive Bayes Classifier">Naive Bayes Classifier</option>
-                <option value="K Nearest Neighbor">K Nearest Neighbor</option>
-                <option value="Logisitic Regression">Logisitic Regression</option>
-              </select>
-        <textarea name="personality-text" id="textarea-container" cols="30" rows="15"></textarea>
-        <input type="submit" id="submit-button">
-    </form>
-    <div id="result-container">
+      <div class="p-2">
+        <form  id="sign-up" >
+      
+        <h2>Select a model</h2>
+        
+        <select name="model" id="model">
+          <option value="Decision Tree">Decision Tree</option>
+          <option value="Random Forest Classifier">Random Forest Classifier</option>
+          <option value="Naive Bayes Classifier">Naive Bayes Classifier</option>
+          <option value="K Nearest Neighbor">K Nearest Neighbor</option>
+          <option value="Logisitic Regression">Logisitic Regression</option>
+        </select>
+          <p>Select all symptoms:</p>
+        <div id="symptom-checkboxes">
+      
+        </div>
+      
+        <input type="submit" value="Submit" />
+          
+        </form>
+      </div>
     </div>
-    </div>
-    </div> 
-    </div>
-  </body>
+{% endblock %}
 
-  <script>
-    var hamburger = document.querySelector(".my_hamburger");
-    hamburger.addEventListener("click", function () {
-      document.querySelector(".my_wrapper").classList.toggle("active");
-    });
-  </script>
+{% block script %}
 
-<script src="{{ url_for('static', path='/js/submit.js') }}"></script>
-</html>
+  <script src="{{ url_for('static', path='/js/submit.js') }}"></script>
+{% endblock %}
