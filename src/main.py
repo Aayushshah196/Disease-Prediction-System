@@ -2,10 +2,9 @@ from typing import Union
 
 from sklearn import naive_bayes
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
 from pydantic import BaseModel
@@ -16,8 +15,7 @@ import pickle
 
 BASE_PATH = Path(__file__).resolve().parent
 TEMPLATES = Jinja2Templates(directory=str(BASE_PATH/"templates"))
-
-class SearchItem(BaseModel):
+class FormData(BaseModel):
     symptoms: list
     model: int
 
@@ -28,12 +26,24 @@ app.mount("/static", StaticFiles(directory=str(BASE_PATH/"static")), name="stati
 
 # decision_tree, random_forest, logistic_regression, knn, naive_bayes 
 MODEL_PATH = BASE_PATH.parent
-models = [ joblib.load(str(MODEL_PATH/"model/DecisionTree")),
+MODELS = [ joblib.load(str(MODEL_PATH/"model/DecisionTree")),
             joblib.load(str(MODEL_PATH/"model/RandomForest")),
             joblib.load(str(MODEL_PATH/"model/LogisticRegression")),
             joblib.load(str(MODEL_PATH/"model/KNN")),
             joblib.load(str(MODEL_PATH/"model/NaiveBayes"))]
 
+SYMPTOMS = [' loss_of_balance', ' vomiting', ' fatigue', ' joint_pain', ' headache',
+' diarrhoea', 'itching', ' muscle_weakness', ' passage_of_gases',
+' weakness_of_one_body_side', ' mild_fever', ' blackheads',
+' patches_in_throat', ' blurred_and_distorted_vision', ' nausea',
+' swollen_blood_vessels', ' fluid_overload', ' coma', ' belly_pain',
+' breathlessness', ' back_pain', ' pain_in_anal_region', ' skin_rash',
+' family_history', ' sweating', ' dark_urine', ' nodal_skin_eruptions',
+' sunken_eyes', ' red_spots_over_body', ' lack_of_concentration',
+' shivering', ' stiff_neck', ' high_fever', ' swelled_lymph_nodes',
+' stomach_pain', ' hip_joint_pain', ' silver_like_dusting',
+' receiving_unsterile_injections', ' abnormal_menstruation', ' blister',
+' burning_micturition']
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
@@ -47,14 +57,13 @@ async def predictionForm(request: Request):
 
 
 @app.post("/predict")
-async def predict(request: Request):#, search:SearchItem):
-    # symptoms = search.symptoms
-    symptoms = [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0]
-    # model_idx = search.model if search.model<len(models) else 0
-    model_idx=2
-    predicted_disease = models[model_idx].predict([symptoms])[0]
+async def predict(request: Request, model: int = Form(), symptoms: list = Form()):#, search:SearchItem):
+    data = [0]*len(SYMPTOMS)
+    for sym in symptoms:
+        data[int(sym)] = 1
+    predicted_disease = MODELS[model].predict([data])[0]
 
-    return {"predicted_disease": predicted_disease}
+    return TEMPLATES.TemplateResponse("PredictionForm.html", {"request": request,"predicted_disease": predicted_disease})
 
 
 if __name__ == "__main__":

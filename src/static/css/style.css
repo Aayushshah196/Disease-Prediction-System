@@ -252,6 +252,7 @@ input[type="submit"]:hover {
     max-width: 100%;
   }
 }
+
 #result-container
 {
   color:#074F57;
@@ -267,8 +268,74 @@ input[type="submit"]:hover {
   display: grid;
   grid-template-columns: repeat(2, minmax(100px, 0.5fr));
   /* gap: 48px 32px; */
-  padding: 30px;
-  width: 85%;
-  margin-left:15%;
-  margin-top:15px;
+  padding: 20px;
+  width: 82%;
+  margin-left:18%;
+  margin-top:5%;
+}
+
+.p-2{
+  box-shadow: 10px 10px 5px 0px rgba(230,203,203,0.75);
+ 
+ border-radius: 26px 26px 26px 26px;
+  width: 100%;
+  margin-left: 20px;
+  padding:20px;
+}
+
+/* .submit-btn{
+  width: 60%;
+  text-align: center;
+  margin: 0 auto;
+} */
+
+
+/* this is for check boxes ------------------------- */
+
+.form-group {
+  display: block;
+  margin: 0px;
+  margin-bottom: 15px;
+  padding: 0px;
+}
+
+.form-group input {
+  padding: 0;
+  height: initial;
+  width: initial;
+  margin-bottom: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.form-group label {
+  position: relative;
+  cursor: pointer;
+}
+
+.form-group label:before {
+  content:'';
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 2px solid #0079bf;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.form-group input:checked + label:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 2px;
+  left: 9px;
+  width: 6px;
+  height: 14px;
+  border: solid #0079bf;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }

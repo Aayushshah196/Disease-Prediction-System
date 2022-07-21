@@ -1,58 +1,23 @@
 
-const data_form = document.querySelector('#sign-up');
-// form.addEventListener('submit', handleData);
-
-
-
 //this part dynamically populates symptoms from the list to create checkbox
-const input_symptoms = ['fever','cold','cough','difficulty_breathing'];
+const input_symptoms = [' loss_of_balance', ' vomiting', ' fatigue', ' joint_pain', ' headache',
+' diarrhoea', 'itching', ' muscle_weakness', ' passage_of_gases',
+' weakness_of_one_body_side', ' mild_fever', ' blackheads',
+' patches_in_throat', ' blurred_and_distorted_vision', ' nausea',
+' swollen_blood_vessels', ' fluid_overload', ' coma', ' belly_pain',
+' breathlessness', ' back_pain', ' pain_in_anal_region', ' skin_rash',
+' family_history', ' sweating', ' dark_urine', ' nodal_skin_eruptions',
+' sunken_eyes', ' red_spots_over_body', ' lack_of_concentration',
+' shivering', ' stiff_neck', ' high_fever', ' swelled_lymph_nodes',
+' stomach_pain', ' hip_joint_pain', ' silver_like_dusting',
+' receiving_unsterile_injections', ' abnormal_menstruation', ' blister',
+' burning_micturition']
+
 const sym_group=document.querySelector('#symptom-checkboxes');
 
 for (var i = 0; i < input_symptoms.length; i++) {
-
-	// <input type="checkbox" name="langs" id="langs_perl" value="Perl"> <label for="langs_perl">Perl</label>
-
-
     var checkBoxdiv = document.createElement("div");
-	checkBoxdiv.innerHTML=`<input type="checkbox" name="symptoms" id="${input_symptoms[i]}" value="${input_symptoms[i]}"> <label for="${input_symptoms[i]}">${input_symptoms[i]}</label>`;
-	sym_group.appendChild(checkBoxdiv);
-    
+	checkBoxdiv.className="form-group";
+	checkBoxdiv.innerHTML=`<input type="checkbox" name="symptoms" id="${input_symptoms[i]}" value="${i}"> <label for="${input_symptoms[i]}">${input_symptoms[i]}</label>`;
+	sym_group.appendChild(checkBoxdiv);   
 }
-
-
-
-//this part handles the submitted symptoms from the list
-const symptoms =[]
-data_form.addEventListener('submit', (e)=>{
-	e.preventDefault();
-	
-	var form_data = new FormData(data_form);
-    console.log("form data: ");
-	console.log(form_data.entries());
-    for(var pair of form_data.entries()) 
-    {
-		symptoms.push(pair[1]);
-    }
-	// document.getElementById("checkbox").checked = false;
-	console.log(symptoms);
-
-	var checkboxes =document.getElementsByName("symptoms");
-	for (var checkbox of checkboxes) {
-        checkbox.checked = false;
-    }
-    return true;
-	
-});
-
-
-
-// function handleData()
-// {
-//     var form_data = new FormData(document.querySelector("form"));
-//     console.log("form data: ");
-//     for(var pair of form_data.entries()) 
-//     {
-//         console.log(pair[0]+ ' : '+ pair[1]);
-//     }
-//     return true;
-// }

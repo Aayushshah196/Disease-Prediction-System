@@ -1,33 +1,42 @@
 {% extends 'index.html' %}
 
-
 {% block content %}
-    <div class="my_container">
-      <div class="p-2">
-        <form  id="sign-up" >
-      
-        <h2>Select a model</h2>
-        
-        <select name="model" id="model">
-          <option value="Decision Tree">Decision Tree</option>
-          <option value="Random Forest Classifier">Random Forest Classifier</option>
-          <option value="Naive Bayes Classifier">Naive Bayes Classifier</option>
-          <option value="K Nearest Neighbor">K Nearest Neighbor</option>
-          <option value="Logisitic Regression">Logisitic Regression</option>
-        </select>
-          <p>Select all symptoms:</p>
-        <div id="symptom-checkboxes">
-          <input type="checkbox" name="symptoms" id="dis" value="dis">
-           <label for="dis">dis</label>
+<div class="my_container">
+    {% if predicted_disease %}
+        <div style="justify-content: center;align-items: center;
+            display: flex;margin-top:5rem;"
+            >
+            The predicted disease is :
+            <h3 style="color: red;">
+                {{ predicted_disease }}
+            </h3>
         </div>
+    {% endif %}
+    <div class="p-2">
+        <form id="sign-up" method="post" >
       
-        <input type="submit" value="Submit" />
-          
+            <h2>Select a model</h2>
+            <select name="model" id="model">
+            <option value=0>Decision Tree</option>
+            <option value=1>
+                Random Forest Classifier
+            </option>
+            <option value=2>Naive Bayes Classifier</option>
+            <option value=3>K Nearest Neighbor</option>
+            <option value=4>Logisitic Regression</option>
+            </select>
+
+            <h2>Select all symptoms:</h2>
+            <div id="symptom-checkboxes"></div>
+            <div class="submit-btn">
+                <input type="submit" value="Submit" />
+            </div>
+        </div>
         </form>
-      </div>
     </div>
+</div>
 {% endblock %}
 
 {% block script %}
   <script src="{{ url_for('static', path='/js/submit.js') }}"></script>
-{% endblock %}
+{% endblock %} 

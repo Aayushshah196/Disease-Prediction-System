@@ -18,7 +18,6 @@
     <main class="my_wrapper">
       <div class="my_sidebar">
         <div class="profile">
-          <img src="../logo1.png" alt="profile_picture" />
           <h3>Disease prediction system</h3>
         </div>
         <ul>
@@ -38,11 +37,9 @@
       </div>
 
       <div class="my_top_navbar">
-        <button class="my_hamburger">
-          <i class="fas fa-bars"></i>
-        </button>
       </div>
     </main>
+
     {% block content %}
     {% endblock %}
 
@@ -51,10 +48,4 @@
   {% block script %}
   {% endblock %}
 
-  <script>
-    var hamburger = document.querySelector(".my_hamburger");
-    hamburger.addEventListener("click", function () {
-      document.querySelector(".my_wrapper").classList.toggle("active");
-    });
-  </script>
 </html>
