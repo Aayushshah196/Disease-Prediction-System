@@ -1,23 +1,14 @@
 from typing import Union
-
-from sklearn import naive_bayes
-
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
-from pydantic import BaseModel
 import uvicorn
 import joblib
 
-import pickle
-
 BASE_PATH = Path(__file__).resolve().parent
 TEMPLATES = Jinja2Templates(directory=str(BASE_PATH/"templates"))
-class FormData(BaseModel):
-    symptoms: list
-    model: int
 
 app = FastAPI()
 
@@ -47,23 +38,23 @@ SYMPTOMS = [' loss_of_balance', ' vomiting', ' fatigue', ' joint_pain', ' headac
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    return TEMPLATES.TemplateResponse("ModelResult.html", {"request": request})
+    return TEMPLATES.TemplateResponse("ModelResult.html", {})
 
 
 @app.get("/predict")
 async def predictionForm(request: Request):
-    return TEMPLATES.TemplateResponse("PredictionForm.html", {"request": request})
+    return TEMPLATES.TemplateResponse("PredictionForm.html", {})
 
 
 
 @app.post("/predict")
-async def predict(request: Request, model: int = Form(), symptoms: list = Form()):#, search:SearchItem):
+async def predict(request: Request, model: int = Form(), symptoms: list = Form()):
     data = [0]*len(SYMPTOMS)
     for sym in symptoms:
         data[int(sym)] = 1
     predicted_disease = MODELS[model].predict([data])[0]
 
-    return TEMPLATES.TemplateResponse("PredictionForm.html", {"request": request,"symptoms":[SYMPTOMS[int(i)] for i in symptoms],"predicted_disease": predicted_disease})
+    return TEMPLATES.TemplateResponse("PredictionForm.html", {"symptoms":[SYMPTOMS[int(i)] for i in symptoms],"predicted_disease": predicted_disease})
 
 
 if __name__ == "__main__":
