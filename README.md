@@ -1,3 +1,1 @@
-# fusemachines-project
-
-## Disease Prediction System
+# Disease Prediction System
