@@ -1,6 +1,13 @@
 # Disease Prediction System
 
-## Backend implemented using FastAPI
+### Backend implemented using FastAPI
 
-Comparative analysis of multiple machine learning models for the purpose of Disease Prediction From Symptoms.
+EDA and Comparative analysis of multiple machine learning models for the purpose of Disease Prediction From Symptoms.
 
+Following models have been trained on the dataset, for this project:
+
+- KNN 
+- Logistic Regression
+- Decision Trees
+
+ 
