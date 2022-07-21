@@ -63,7 +63,7 @@ async def predict(request: Request, model: int = Form(), symptoms: list = Form()
         data[int(sym)] = 1
     predicted_disease = MODELS[model].predict([data])[0]
 
-    return TEMPLATES.TemplateResponse("PredictionForm.html", {"request": request,"predicted_disease": predicted_disease})
+    return TEMPLATES.TemplateResponse("PredictionForm.html", {"request": request,"symptoms":[SYMPTOMS[int(i)] for i in symptoms],"predicted_disease": predicted_disease})
 
 
 if __name__ == "__main__":

@@ -3,12 +3,22 @@
 {% block content %}
 <div class="my_container">
     {% if predicted_disease %}
+        <div id="choosen-symptoms">
+            <h3></h3>
+            <ul id="choosen-symptoms-list">
+            {%for symp in symptoms%}
+                <li> symp </li>
+            {%endfor%}
+            </ul>
+        </div>
         <div style="justify-content: center;align-items: center;
             display: flex;margin-top:5rem;"
             >
             The predicted disease is :
             <h3 style="color: red;">
                 {{ predicted_disease }}
+                kjlk
+                {{symptoms}}
             </h3>
         </div>
     {% endif %}
